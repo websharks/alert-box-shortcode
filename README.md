@@ -1,2 +1,3 @@
 # alert-box-shortcode
-Alert by Shortcode for WordPress by WebSharks.
+
+Alert Box Shotcode for WordPress by WP Sharks™.
