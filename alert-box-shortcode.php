@@ -1,64 +1,75 @@
 <?php
 /*
-Version: 160421
+Version: 160423
 Text Domain: alert-box-shortcode
 Plugin Name: Alert Box Shortcode
-Description: Provides an `[alert_box]` shortcode.
+Description: Provides an `[alertBox]` shortcode.
 Plugin URI: https://wordpress.org/plugins/alert-box-shortcode/
 Author: WP Sharks
 Author URI: https://wpsharks.com
 */
 
-class AlertBox
+class Alert_Box
 {
-    public static function alert_box($attr, $content, $shortcode)
+    public static function alertBox($attr, $content, $shortcode)
     {
         static $counter = 0;
 
         $attr = shortcode_atts(
             [
                 'border_width'     => '1px',
-                'background_color' => '#ffe6e6',
-                'border_color'     => '#ff8080',
-                'text_color'       => '#000000',
-                'link_color'       => '#b30000',
-                'link_hover_color' => '#4d0000',
+                'background_color' => '#d34b44',
+                'border_color'     => '#bd433d',
+                'text_color'       => '#f1f1f1',
+                'link_color'       => '#ffc5c2',
+                'link_hover_color' => '#f1f1f1',
                 'border_radius'    => '.25em',
                 'border_style'     => 'solid',
                 'padding'          => '1em',
-                'style'            => '',
+                'margin_bottom'    => '2em',
+                'padding_icon'     => '.5em',
                 'type'             => '',
+                'style'             => '',
             ],
             $attr,
             $shortcode
         );
 
+        $class  = 'fa fa-exclamation-circle';
+
         switch ($attr['type']) {
             case 'error':
-                $attr['background_color'] = '#ffe6e6';
-                $attr['border_color']     = '#ff8080';
-                $attr['link_color']       = '#b30000';
-                $attr['link_hover_color'] = '#4d0000';
+                $attr['background_color'] = '#d34b44';
+                $attr['border_color']     = '#bd433d';
+                $attr['link_color']       = '#ffc5c2';
+                $attr['link_hover_color'] = '#f1f1f1';
+                $class                    = 'fa fa-exclamation-circle';
                 break;
 
             case 'warning':
-                $attr['background_color'] = '#FFF89E';
-                $attr['border_color']     = '#BBB66E';
-                $attr['link_color']       = '#5D6EB3';
-                $attr['link_hover_color'] = '#4d0000';
+                $attr['background_color'] = '#efd155';
+                $attr['border_color']     = '#edcb3e';
+                $attr['link_color']       = '#fbeeb7';
+                $attr['link_hover_color'] = '#f1f1f1';
+                $class                    = 'fa fa-exclamation-triangle';
                 break;
 
             case 'info':
-                $attr['background_color'] = '#DAFFDA';
-                $attr['border_color']     = '#AAC5AA';
-                $attr['link_color']       = '#5D6EB3';
-                $attr['link_hover_color'] = '#4d0000';
+                $attr['background_color'] = '#2ecc71';
+                $attr['border_color']     = '#29b765';
+                $attr['link_color']       = '#c0efd4';
+                $attr['link_hover_color'] = '#f1f1f1';
+                $class                    = 'fa fa-info-circle';
                 break;
 
                 casedefault:
                 break;
         }
         $id = 'alert-box-'.$counter;
+
+        $stylesheet = '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">';
+
+        $icon_css   = 'style="padding-right:'.$attr['padding_icon'].'"';
 
         $css = '
         <style type="text/css">
@@ -69,38 +80,43 @@ class AlertBox
             background-color: '.$attr['background_color'].';
             border-radius: '.$attr['border_radius'].';
             padding: '.$attr['padding'].';
+            margin-bottom: '.$attr['margin_bottom'].';
             color: '.$attr['text_color'].';
         }
-        
+
         #'.$id.' a {
             color: '.$attr['link_color'].';
+            border-color: '.$attr['border_color'].';
         }
-        
+
         #'.$id.' a:hover {
             color: '.$attr['link_hover_color'].';
         }
         </style>
         ';
 
-        $short_code_content = $css; // Styles from above.
+        $counter++;
 
         $style = "";
 
-        if( isset( $attr[ 'style' ] ) )
+        if (isset($attr['style']))
         {
-            $style = 'style="'.$attr[ 'style' ] . '"';
+            $style = 'style="'.$attr['style'].'"';
         }
 
-        $short_code_content .= '<div id="'.esc_attr($id).'"'. $style .'>';
-        $short_code_content .= trim($content);
-        $short_code_content .= '</div>';
+        $alertBox = $stylesheet; //Stylesheet from FontAwesome
+        $alertBox .= $css; // Styles from above.
 
-        $counter++;
+        $alertBox .= '<p id="'.esc_attr($id).'" '. $style .'>';
+        $alertBox .= '<i class="'.esc_attr($class).'" '.$icon_css.'></i>';
+        $alertBox .=    trim($content);
+        $alertBox .= '</p>';
 
-        return $short_code_content;
+        return $alertBox;
+
     }
 }
 
 add_action('plugins_loaded', function () {
-    add_shortcode('alert_box', array('AlertBox', 'alert_box'));
+    add_shortcode('alertBox', array('Alert_Box', 'alertBox'));
 });

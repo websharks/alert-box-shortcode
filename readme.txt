@@ -1,6 +1,6 @@
 === Alert Box Shortcode ===
 
-Stable tag: 160422
+Stable tag: 160423
 Requires at least: 4.2
 Tested up to: 4.6-alpha
 
@@ -27,6 +27,20 @@ The `[alert_box][/alert_box]` shortcode can be used without any options. By defa
 - Activate the "Alert Box Shortcode" plugin in **WordPress Dashboard → Plugins**
 
 == Changelog ==
+
+= v160423 =
+
+- **Bug Fix:** CSS `margin-bottom=""` attribute did not exist, so the alert box was too close to the WordPress content below it. Props @raamdev @kristineds.
+- **Bug Fix:** CSS `padding-right=""` attribute did not exist, so the FontAwesome icon was too close to the text right next to it. Props @kristineds.
+- **Enhancement:** Added FontAwesome icons to improve the aesthetic of the alert box and to easily identify the alert box type. Props @kristineds.
+- **Enhancement:** CSS Improve design for alert box type (`error`, `warning`, or `info`) while still following the initial preset color (red, yellow, and green respectively). Props @kristineds.
+- **Enhancement:** Replaced `<div>` with `<p>` so that they can be placed around other content within a WordPress post. Props @raamdev @kristineds.
+- **Enhancement:** Refactored to use `Alert_Box` class name instead of `AlertBox`. Props @raamdev @kristineds.
+- **Enhancement:** Refactored to use `alertBox` method instead of `alert_box` (camelCase, for PSR compat.) Props @jaswsinc @kristineds.
+- **Enhancement:** Improved the ability to override styles; it should be possible to set a type (e.g., `type="info"`) and then override specific styles, e.g., to set the `background_color` to a different shade of green. Props @raamdev @kristineds.
+- **Enhancement:** Added new `style=""` attribute that allows you to pass in any additional CSS style attributes; these should specifically override any existing styles if supplied. Props @Reedyseth @kristineds.
+- **Enhancement:** Used `return` instead of `echo` for the Shortcode function, as per WordPress guidelines. Props @Reedyseth @kristineds.
+- **Enhancement:** Added documentation and usage examples. Props @kristineds.
 
 = v160422 =
 
