@@ -26,6 +26,7 @@ class AlertBox
                 'border_radius'    => '.25em',
                 'border_style'     => 'solid',
                 'padding'          => '1em',
+                'style'            => '',
                 'type'             => '',
             ],
             $attr,
@@ -81,13 +82,22 @@ class AlertBox
         </style>
         ';
 
-        echo $css; // Styles from above.
+        $short_code_content = $css; // Styles from above.
 
-        echo '<div id="'.esc_attr($id).'">';
-        echo trim($content);
-        echo '</div>';
+        $style = "";
+
+        if( isset( $attr[ 'style' ] ) )
+        {
+            $style = 'style="'.$attr[ 'style' ] . '"';
+        }
+
+        $short_code_content .= '<div id="'.esc_attr($id).'"'. $style .'>';
+        $short_code_content .= trim($content);
+        $short_code_content .= '</div>';
 
         $counter++;
+
+        return $short_code_content;
     }
 }
 
