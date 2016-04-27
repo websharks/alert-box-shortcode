@@ -27,7 +27,7 @@ class Alert_Box
                 'border_style'     => 'solid',
                 'padding'          => '1em',
                 'margin_bottom'    => '2em',
-                'padding_icon'     => '.5em',
+                'margin_icon'     => '.2em .5em .2em 0',
                 'type'             => '',
                 'style'             => '',
             ],
@@ -35,7 +35,7 @@ class Alert_Box
             $shortcode
         );
 
-        $class  = 'fa fa-exclamation-circle';
+        $class  = 'dashicons dashicons-warning';
 
         switch ($attr['type']) {
             case 'error':
@@ -43,7 +43,7 @@ class Alert_Box
                 $attr['border_color']     = '#bd433d';
                 $attr['link_color']       = '#ffc5c2';
                 $attr['link_hover_color'] = '#f1f1f1';
-                $class                    = 'fa fa-exclamation-circle';
+                $class                    = 'dashicons dashicons-warning';
                 break;
 
             case 'warning':
@@ -51,7 +51,7 @@ class Alert_Box
                 $attr['border_color']     = '#edcb3e';
                 $attr['link_color']       = '#fbeeb7';
                 $attr['link_hover_color'] = '#f1f1f1';
-                $class                    = 'fa fa-exclamation-triangle';
+                $class                    = 'dashicons dashicons-flag';
                 break;
 
             case 'info':
@@ -59,7 +59,7 @@ class Alert_Box
                 $attr['border_color']     = '#29b765';
                 $attr['link_color']       = '#c0efd4';
                 $attr['link_hover_color'] = '#f1f1f1';
-                $class                    = 'fa fa-info-circle';
+                $class                    = 'dashicons dashicons-info';
                 break;
 
                 casedefault:
@@ -67,9 +67,7 @@ class Alert_Box
         }
         $id = 'alert-box-'.$counter;
 
-        $stylesheet = '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">';
-
-        $icon_css   = 'style="padding-right:'.$attr['padding_icon'].'"';
+        $icon_css   = 'style="margin:'.$attr['margin_icon'].'"';
 
         $css = '
         <style type="text/css">
@@ -104,11 +102,10 @@ class Alert_Box
             $style = 'style="'.$attr['style'].'"';
         }
 
-        $alertBox = $stylesheet; //Stylesheet from FontAwesome
-        $alertBox .= $css; // Styles from above.
+        $alertBox = $css; // Styles from above.
 
         $alertBox .= '<p id="'.esc_attr($id).'" '. $style .'>';
-        $alertBox .= '<i class="'.esc_attr($class).'" '.$icon_css.'></i>';
+        $alertBox .= '<span class="'.esc_attr($class).'" '.$icon_css.'></span>';
         $alertBox .=    trim($content);
         $alertBox .= '</p>';
 
