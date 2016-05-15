@@ -3,7 +3,7 @@
 Version: 160526
 Text Domain: alert-box-shortcode
 Plugin Name: Alert Box Shortcode
-Description: Provides an `[shortcode]` shortcode.
+Description: Provides an `[alert_box]` shortcode.
 Plugin URI: https://wordpress.org/plugins/alert-box-shortcode/
 Author: WP Sharks
 Author URI: https://wpsharks.com
