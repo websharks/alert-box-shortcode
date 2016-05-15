@@ -1,18 +1,6 @@
 <?php
-/*
-Version: 160526
-Text Domain: alert-box-shortcode
-Plugin Name: Alert Box Shortcode
-Description: Provides an `[shortcode]` shortcode.
-Plugin URI: https://wordpress.org/plugins/alert-box-shortcode/
-Author: WP Sharks
-Author URI: https://wpsharks.com
-*/
-
-/*
 declare (strict_types = 1);
 namespace WebSharks\WpSharks\AlertBoxShortcode\Classes;
-*/
 
 /**
 * Shortcode handler.
@@ -66,16 +54,15 @@ class AlertBox
                 break;
 
             case 'info':
+            default: // Also default case.
                 $attr['background_color'] = '#2ecc71';
                 $attr['border_color']     = '#29b765';
                 $attr['link_color']       = '#c0efd4';
                 $attr['link_hover_color'] = '#f1f1f1';
                 $class                    = 'dashicons dashicons-info';
                 break;
-
-                casedefault:
-                break;
         }
+
         $id = 'alert-box-'.$counter;
 
         $icon_css   = 'style="margin:'.$attr['margin_icon'].'"';
@@ -124,7 +111,3 @@ class AlertBox
 
     }
 }
-
-add_action('plugins_loaded', function () {
-    add_shortcode('shortcode', array('AlertBox', 'shortcode'));
-});
