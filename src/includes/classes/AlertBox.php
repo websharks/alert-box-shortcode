@@ -1,17 +1,16 @@
 <?php
-/*
-Version: 160423
-Text Domain: alert-box-shortcode
-Plugin Name: Alert Box Shortcode
-Description: Provides an `[alertBox]` shortcode.
-Plugin URI: https://wordpress.org/plugins/alert-box-shortcode/
-Author: WP Sharks
-Author URI: https://wpsharks.com
+declare (strict_types = 1);
+namespace WebSharks\WpSharks\AlertBoxShortcode\Classes;
+
+/**
+* Shortcode handler.
+*
+* @since 160526 Naming standards.
 */
 
-class Alert_Box
+class AlertBox
 {
-    public static function alertBox($attr, $content, $shortcode)
+    public function shortcode($attr, $content, $apply_shortcode)
     {
         static $counter = 0;
 
@@ -32,7 +31,7 @@ class Alert_Box
                 'style'             => '',
             ],
             $attr,
-            $shortcode
+            $apply_shortcode
         );
 
         $class  = 'dashicons dashicons-warning';
@@ -55,16 +54,15 @@ class Alert_Box
                 break;
 
             case 'info':
+            default: // Also default case.
                 $attr['background_color'] = '#2ecc71';
                 $attr['border_color']     = '#29b765';
                 $attr['link_color']       = '#c0efd4';
                 $attr['link_hover_color'] = '#f1f1f1';
                 $class                    = 'dashicons dashicons-info';
                 break;
-
-                casedefault:
-                break;
         }
+
         $id = 'alert-box-'.$counter;
 
         $icon_css   = 'style="margin:'.$attr['margin_icon'].'"';
@@ -102,18 +100,14 @@ class Alert_Box
             $style = 'style="'.$attr['style'].'"';
         }
 
-        $alertBox = $css; // Styles from above.
+        $apply_shortcode = $css; // Styles from above.
 
-        $alertBox .= '<p id="'.esc_attr($id).'" '. $style .'>';
-        $alertBox .= '<span class="'.esc_attr($class).'" '.$icon_css.'></span>';
-        $alertBox .=    trim($content);
-        $alertBox .= '</p>';
+        $apply_shortcode .= '<p id="'.esc_attr($id).'" '. $style .'>';
+        $apply_shortcode .= '<span class="'.esc_attr($class).'" '.$icon_css.'></span>';
+        $apply_shortcode .=    trim($content);
+        $apply_shortcode .= '</p>';
 
-        return $alertBox;
+        return $apply_shortcode;
 
     }
 }
-
-add_action('plugins_loaded', function () {
-    add_shortcode('alertBox', array('Alert_Box', 'alertBox'));
-});
